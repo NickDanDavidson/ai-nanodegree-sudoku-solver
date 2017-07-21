@@ -2,8 +2,8 @@ assignments = []
 
 def assign_value(values, box, value):
     """
-    Please use this function to update your values dictionary!
-    Assigns a value to a given box. If it updates the board record it.
+    Update values in dictionary
+    Assigns a value to a given box. If it updates the board, record it.
     """
 
     # Don't waste memory appending actions that don't actually change any values
@@ -57,9 +57,8 @@ boxes = cross(rows, cols)
 row_units = [cross(row, cols) for row in rows]
 column_units = [cross(rows, col) for col in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
-##
 diagonal_units = [[r + s for (r, s) in zip(rows, cols)], [r + s for (r, s) in zip(reversed(rows), cols)]]
-##
+
 unitlist = row_units + column_units + square_units + diagonal_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s], [])) - set([s])) for s in boxes)
@@ -157,7 +156,7 @@ def search(values):
         return values
     # Choose one of the unfilled squares with the fewest possibilities
     n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
-    # Now use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer!
+    # Use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer
     for value in values[s]:
         new_sudoku = values.copy()
         new_sudoku[s] = value
@@ -188,4 +187,4 @@ if __name__ == '__main__':
     except SystemExit:
         pass
     except:
-        print('We could not visualize your board due to a pygame issue. Not a problem! It is not a requirement.')
+        print('Cannot visualize board due to pygame issue.')
